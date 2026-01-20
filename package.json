@@ -1,0 +1,18 @@
+{
+  "name": "elastic-task-remaining",
+  "version": "1.0.0",
+  "description": "Calculate remaining time for Elasticsearch tasks",
+  "main": "script.js",
+  "scripts": {
+    "test": "node tests/test-runner.js"
+  },
+  "keywords": [
+    "elasticsearch",
+    "task",
+    "progress",
+    "calculator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "module"
+}

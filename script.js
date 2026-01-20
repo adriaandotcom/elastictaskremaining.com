@@ -55,8 +55,25 @@ const filterPath = [
 
 let intervalId;
 
+// For browser compatibility, we'll define the function inline
+// In a Node.js environment, this would be imported from './lib/sanitize.js'
 const sanitizeJsonInput = (input) => {
-  input = input.replace(/"""/g, '"');
+  // Convert triple-quoted strings to properly escaped JSON strings
+  input = input.replace(
+    /"description"\s*:\s*"""(.*?)"""/gs,
+    (match, content) => {
+      // Escape the content for JSON
+      const escapedContent = content
+        .replace(/\\/g, "\\\\") // Escape backslashes
+        .replace(/"/g, '\\"') // Escape quotes
+        .replace(/\n/g, "\\n") // Escape newlines
+        .replace(/\r/g, "\\r") // Escape carriage returns
+        .replace(/\t/g, "\\t"); // Escape tabs
+
+      return `"description": "${escapedContent}"`;
+    }
+  );
+
   input = input.replace(/\/\/.*$/gm, "");
   input = input.replace(/\n/g, " ");
   return input;
